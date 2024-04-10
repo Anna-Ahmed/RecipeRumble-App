@@ -7,13 +7,15 @@ _Complete the information above and then enumerate your functional and non funct
 
 Functional Requirements:
 
-The application must allow users to navigate between different pages by using []
+The application must allow users to navigate between different pages by using a navigation bar
 
 The application must contain a list of different recipes 
 
+The application must containt the ingredients , instructions and nutrition information for each recipe
+
 The application must contain a calender
 
-The application must allow users to use a calnder to meal plan their meals
+The application must allow users to use a calender to meal plan their meals
 
 The application must allow users to click the favourite button on a recipe so that uses can see their favoruite recipes 
 
@@ -27,8 +29,22 @@ The application must allow users to add their own recipes
 
 The application must allow users to add meals to the calender
 
-The application must notify the user if the user has not meal planned
+The application must notify the user to remind them to plan a meal if they haven't already
 
 
 Non Functional Requirements:
+
+The application should be in portrait mode
+
+The application should look aesthically pleasing 
+
+The application should have a consient look
+
+The applicaiton should load 10 recipes within 3 seconds 
+
+When the user launches the  app they should  first be asked if they want to recieve notifcations
+
+
+
+
 
