@@ -16,7 +16,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-
     private val recipeFragment = RecipeFragment()
     private val mealPlannerFragment = MealPlannerFragment()
     private val addRecipeFragment = AddRecipeFragment()
@@ -32,12 +31,11 @@ class MainActivity : AppCompatActivity() {
         setupBottomNavigationView()
 
 
-        val apiService = RetrofitClient.getSpoonacularApiService()
-        val recipeDao = AppDatabase.getDatabase(this).recipeDao()
-        val repository = RecipeRepository(apiService, recipeDao)
+        val apiService = RetrofitClient.getRecipeAPI()
+        val repository = RecipeRepository(apiService)
         recipeViewModel = ViewModelProvider(this, ViewModelFactory(repository)).get(RecipeViewModel::class.java)
 
-
+        // Fetch recipes example
         recipeViewModel.fetchRecipes(10, "45d78e1e234046a68f6aa037628b49")
     }
 
@@ -76,3 +74,4 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 }
+

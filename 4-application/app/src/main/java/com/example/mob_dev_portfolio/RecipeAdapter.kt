@@ -1,5 +1,6 @@
 package com.example.mob_dev_portfolio
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,15 +28,25 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
         recipes = newRecipes
         notifyDataSetChanged()
     }
-
     inner class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val titleTextView: TextView = itemView.findViewById(R.id.Title)
-        private val imageView: ImageView = itemView.findViewById(R.id.RecipeImage)
-        private val instructionsTextView: TextView = itemView.findViewById(R.id.Instructions)
+        private val titleTextView: TextView = itemView.findViewById(R.id.recipeTitle)
 
         fun bind(recipe: Recipe) {
             titleTextView.text = recipe.title
-
+            itemView.setOnClickListener {
+                val fragment = RecipeDetailFragment()
+                val bundle = Bundle().apply {
+                    putInt("recipeId", recipe.id)
+                }
+                fragment.arguments = bundle
+                val fragmentManager = (itemView.context as MainActivity).supportFragmentManager
+                fragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainer, fragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
         }
     }
+
+
 }

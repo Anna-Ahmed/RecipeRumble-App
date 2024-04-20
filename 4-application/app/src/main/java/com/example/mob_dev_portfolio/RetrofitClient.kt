@@ -15,8 +15,8 @@ object RetrofitClient {
     }
 
 
-    fun getSpoonacularApiService(): SpoonacularAPI {
-        return retrofit.create(SpoonacularAPI::class.java)
+    fun getRecipeAPI(): RecipeAPI {
+        return retrofit.create(RecipeAPI::class.java)
     }
 }
 
