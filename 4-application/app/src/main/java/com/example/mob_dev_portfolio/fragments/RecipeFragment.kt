@@ -10,16 +10,26 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mob_dev_portfolio.R
-import com.example.mob_dev_portfolio.RecipeAdapter
-import com.example.mob_dev_portfolio.RecipeRepository
-import com.example.mob_dev_portfolio.RecipeViewModel
-import com.example.mob_dev_portfolio.RetrofitClient
-import com.example.mob_dev_portfolio.ViewModelFactory
+import com.example.mob_dev_portfolio.adpaters.RecipeAdapter
+import com.example.mob_dev_portfolio.data.RecipeDatabase
+import com.example.mob_dev_portfolio.repository.RecipeRepository
+import com.example.mob_dev_portfolio.model.RecipeViewModel
+import com.example.mob_dev_portfolio.data.RetrofitClient
+import com.example.mob_dev_portfolio.model.ViewModelFactory
 
 
 class RecipeFragment: Fragment() {
     private lateinit var recipeAdapter: RecipeAdapter
     private lateinit var recipeViewModel: RecipeViewModel
+    private lateinit var db: RecipeDatabase
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        db = RecipeDatabase.getDatabase(requireContext())
+        val apiService = RetrofitClient.getRecipeAPI()
+        val repository = RecipeRepository(apiService, db)
+        recipeViewModel = ViewModelProvider(this, ViewModelFactory(repository)).get(RecipeViewModel::class.java)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,11 +61,6 @@ class RecipeFragment: Fragment() {
 
         recipeAdapter = RecipeAdapter()
         recyclerView.adapter = recipeAdapter
-
-        // Initialize ViewModel
-        val apiService = RetrofitClient.getRecipeAPI()
-        val repository = RecipeRepository(apiService)
-        recipeViewModel = ViewModelProvider(this, ViewModelFactory(repository)).get(RecipeViewModel::class.java)
 
         recipeViewModel.recipes.observe(viewLifecycleOwner) { recipes ->
             recipeAdapter.setRecipes(recipes)

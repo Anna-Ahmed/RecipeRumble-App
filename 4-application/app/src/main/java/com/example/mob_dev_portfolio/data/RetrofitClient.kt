@@ -1,4 +1,4 @@
-package com.example.mob_dev_portfolio
+package com.example.mob_dev_portfolio.data
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

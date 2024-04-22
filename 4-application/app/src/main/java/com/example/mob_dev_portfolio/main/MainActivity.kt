@@ -1,14 +1,20 @@
-package com.example.mob_dev_portfolio
+package com.example.mob_dev_portfolio.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.mob_dev_portfolio.R
+import com.example.mob_dev_portfolio.data.RecipeDatabase
+import com.example.mob_dev_portfolio.data.RetrofitClient
 import com.example.mob_dev_portfolio.fragments.AddRecipeFragment
 import com.example.mob_dev_portfolio.fragments.FavouritesFragment
 import com.example.mob_dev_portfolio.fragments.MealPlannerFragment
 import com.example.mob_dev_portfolio.fragments.RecipeFragment
 import com.example.mob_dev_portfolio.fragments.SavedRecipesFragment
+import com.example.mob_dev_portfolio.model.RecipeViewModel
+import com.example.mob_dev_portfolio.model.ViewModelFactory
+import com.example.mob_dev_portfolio.repository.RecipeRepository
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -23,20 +29,21 @@ class MainActivity : AppCompatActivity() {
     private val favouritesFragment = FavouritesFragment()
 
     private lateinit var recipeViewModel: RecipeViewModel
+    private lateinit var db: RecipeDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setupBottomNavigationView()
+
+        db = RecipeDatabase.getDatabase(applicationContext)
 
 
         val apiService = RetrofitClient.getRecipeAPI()
-        val repository = RecipeRepository(apiService)
+        val repository = RecipeRepository(apiService, db)
         recipeViewModel = ViewModelProvider(this, ViewModelFactory(repository)).get(RecipeViewModel::class.java)
 
-        // Fetch recipes example
-        recipeViewModel.fetchRecipes(10, "45d78e1e234046a68f6aa037628b49")
+        setupBottomNavigationView()
     }
 
     private fun setupBottomNavigationView() {

@@ -1,9 +1,7 @@
-package com.example.mob_dev_portfolio
+package com.example.mob_dev_portfolio.data
 
 
 import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -26,6 +24,18 @@ interface RecipeAPI {
         @Path("id") recipeId: Int,
         @Query("apiKey") apiKey: String
     ): Call<IngredientListResponse>
+
+    @GET("recipes/{id}/nutritionWidget.json")
+    fun getNutrition(
+        @Path("id") recipeId: Int,
+        @Query("apiKey") apiKey: String
+    ): Call<NutritionResponse>
+
+    @GET("recipes/{id}/analyzedInstructions")
+    fun getRecipeInstructions(
+        @Path("id") recipeId: Int,
+        @Query("apiKey") apiKey: String
+    ): Call<List<RecipeInstructionResponse>>
 }
 
 
@@ -37,14 +47,6 @@ data class IngredientListResponse(
 )
 
 
-
-data class Amount(
-    val unit: String,
-    val value: Double
-)
-
-data class Ingredient(
-    val amount: Amount,
-    val name: String,
-    val image: String
+data class RecipeInstructionResponse(
+    val steps: List<Step>
 )

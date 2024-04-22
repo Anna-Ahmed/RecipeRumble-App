@@ -1,12 +1,15 @@
-package com.example.mob_dev_portfolio
+package com.example.mob_dev_portfolio.adpaters
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mob_dev_portfolio.main.MainActivity
+import com.example.mob_dev_portfolio.R
+import com.example.mob_dev_portfolio.data.Recipe
+import com.example.mob_dev_portfolio.fragments.RecipeDetailFragment
 
 class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
     private var recipes: List<Recipe> = emptyList()
@@ -47,6 +50,7 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
             }
         }
     }
+
 
 
 }

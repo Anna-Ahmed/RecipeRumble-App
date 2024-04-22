@@ -1,6 +1,6 @@
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -8,8 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
-        tools:ignore="MissingDefaultResource">
+        android:padding="16dp">
+        <Button
+            android:id="@+id/likeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Like"
+            android:layout_marginBottom="16dp"/>
 
         <TextView
             android:id="@+id/titleTextView"
@@ -17,7 +22,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Recipe Title" />
+            android:layout_marginBottom="16dp"/>
 
         <ImageView
             android:id="@+id/recipeImageView"
@@ -25,7 +30,7 @@
             android:layout_height="200dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            android:layout_marginTop="16dp" />
+            android:layout_marginBottom="16dp"/>
 
         <TextView
             android:id="@+id/ingredientsLabel"
@@ -35,7 +40,7 @@
             android:textStyle="bold"
             android:text="Ingredients:"
             android:padding="16dp"
-            android:layout_marginTop="16dp" />
+            android:layout_marginBottom="16dp"/>
 
         <TextView
             android:id="@+id/ingredientsContent"
@@ -43,7 +48,17 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:padding="16dp"
-            android:layout_marginTop="8dp" />
+            android:layout_marginBottom="16dp"/>
+
+
+
+        <TextView
+            android:id="@+id/caloriesContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp"/>
 
         <TextView
             android:id="@+id/instructionsLabel"
@@ -53,7 +68,7 @@
             android:textStyle="bold"
             android:text="Instructions:"
             android:padding="16dp"
-            android:layout_marginTop="16dp" />
+            android:layout_marginBottom="16dp"/>
 
         <TextView
             android:id="@+id/instructionsContent"
@@ -61,7 +76,7 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:padding="16dp"
-            android:layout_marginTop="8dp" />
+            android:layout_marginBottom="16dp"/>
 
     </LinearLayout>
 </ScrollView>
