@@ -43,5 +43,6 @@ data class Step(
 data class  FavouriteRecipe(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val title: String
+    val title: String,
+    val isLiked: Boolean
 )

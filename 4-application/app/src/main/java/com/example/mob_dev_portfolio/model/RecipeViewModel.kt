@@ -34,4 +34,7 @@ class RecipeViewModel(private val repository: RecipeRepository) : ViewModel() {
     fun addFavouriteRecipe(favouriteRecipe: FavouriteRecipe, callback: (Long) -> Unit) {
         repository.addFavouriteRecipe(favouriteRecipe, callback)
     }
+    fun deleteFavouriteRecipe(favouriteRecipe: FavouriteRecipe) {
+        repository.deleteFavouriteRecipe(favouriteRecipe)
+    }
 }

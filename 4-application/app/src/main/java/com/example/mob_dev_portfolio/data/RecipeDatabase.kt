@@ -10,7 +10,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.mob_dev_portfolio.dao.RecipeDao
 
 @TypeConverters(Converters::class)
-@Database(entities = [ FavouriteRecipe::class], version = 2)
+@Database(entities = [ FavouriteRecipe::class], version = 3)
 abstract class RecipeDatabase : RoomDatabase() {
 
     abstract fun recipeDao(): RecipeDao
@@ -31,7 +31,7 @@ abstract class RecipeDatabase : RoomDatabase() {
 
                 val cursor = database.query("SELECT name FROM sqlite_master WHERE type='table' AND name='favourite_recipes'")
                 if (cursor != null && cursor.moveToFirst()) {
-                    // Step 3: Copy data from the old table to the new table
+                  
                     database.execSQL(
                         "INSERT INTO favourite_recipes_new (id, title) " +
                                 "SELECT id, title FROM favourite_recipes"
@@ -46,6 +46,15 @@ abstract class RecipeDatabase : RoomDatabase() {
                 database.execSQL("ALTER TABLE favourite_recipes_new RENAME TO favourite_recipes")
             }
         }
+        private val MIGRATION_2_3: Migration = object : Migration(2, 3) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+
+                database.execSQL(
+                    "ALTER TABLE liked_recipes " +
+                            "ADD COLUMN `isLiked` INTEGER NOT NULL DEFAULT 0"
+                )
+            }
+        }
 
         fun getDatabase(context: Context): RecipeDatabase {
             return INSTANCE ?: synchronized(this) {
@@ -54,7 +63,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     RecipeDatabase::class.java,
                     "recipe_database"
                 )
-                    .addMigrations(MIGRATION_1_2)
+                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                     .build()
                 INSTANCE = instance
                 instance

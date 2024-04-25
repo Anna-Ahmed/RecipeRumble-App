@@ -121,10 +121,16 @@ class RecipeRepository(private val api: RecipeAPI, private val db: RecipeDatabas
         Executors.newSingleThreadExecutor().execute {
             val id = db.recipeDao().insertFavouriteRecipe(favouriteRecipe)
 
-
+            // Post the result back to the main thread
             Handler(Looper.getMainLooper()).post {
                 callback(id)
             }
         }
     }
-}
+
+    fun deleteFavouriteRecipe(favouriteRecipe: FavouriteRecipe) {
+        Executors.newSingleThreadExecutor().execute {
+            db.recipeDao().deleteFavouriteRecipe(favouriteRecipe)
+        }
+    }
+    }

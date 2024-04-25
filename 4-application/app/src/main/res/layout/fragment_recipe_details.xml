@@ -9,12 +9,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
-        <Button
-            android:id="@+id/likeButton"
+
+        <ImageView
+            android:id="@+id/likeImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Like"
+            android:src="@drawable/ic_heart_empty"
             android:layout_marginBottom="16dp"/>
+
+
 
         <TextView
             android:id="@+id/titleTextView"
