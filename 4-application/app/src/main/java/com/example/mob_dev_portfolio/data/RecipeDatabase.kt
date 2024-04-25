@@ -31,7 +31,7 @@ abstract class RecipeDatabase : RoomDatabase() {
 
                 val cursor = database.query("SELECT name FROM sqlite_master WHERE type='table' AND name='favourite_recipes'")
                 if (cursor != null && cursor.moveToFirst()) {
-                  
+
                     database.execSQL(
                         "INSERT INTO favourite_recipes_new (id, title) " +
                                 "SELECT id, title FROM favourite_recipes"
