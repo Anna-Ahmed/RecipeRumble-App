@@ -6,6 +6,7 @@ import com.example.mob_dev_portfolio.data.FavouriteRecipe
 import com.example.mob_dev_portfolio.data.NutritionResponse
 import com.example.mob_dev_portfolio.data.Recipe
 import com.example.mob_dev_portfolio.data.RecipeInstructionResponse
+import com.example.mob_dev_portfolio.data.SavedRecipe
 import com.example.mob_dev_portfolio.repository.RecipeRepository
 
 class RecipeViewModel(private val repository: RecipeRepository) : ViewModel() {
@@ -15,6 +16,7 @@ class RecipeViewModel(private val repository: RecipeRepository) : ViewModel() {
     val nutrition: LiveData<NutritionResponse> = repository.nutrition
     val recipeInstructions: LiveData<List<RecipeInstructionResponse>> = repository.recipeInstructions
     val favouriteRecipes: LiveData<List<FavouriteRecipe>> = repository.favouriteRecipes
+    val savedRecipes: LiveData<List<SavedRecipe>> = repository.savedRecipes
     fun fetchRecipes(number: Int, apiKey: String) {
         repository.fetchRecipes(number, apiKey)
     }
@@ -37,4 +39,13 @@ class RecipeViewModel(private val repository: RecipeRepository) : ViewModel() {
     fun deleteFavouriteRecipe(favouriteRecipe: FavouriteRecipe) {
         repository.deleteFavouriteRecipe(favouriteRecipe)
     }
+    fun addSavedRecipe(savedRecipe: SavedRecipe, callback: (Long) -> Unit) {
+        repository.addSavedRecipe(savedRecipe, callback)
+    }
+
+    fun deleteSavedRecipe(savedRecipe: SavedRecipe) {
+        repository.deleteSavedRecipe(savedRecipe)
+    }
+
+
 }

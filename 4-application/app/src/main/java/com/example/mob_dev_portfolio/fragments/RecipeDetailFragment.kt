@@ -19,6 +19,7 @@ import com.example.mob_dev_portfolio.data.RecipeDatabase
 import com.example.mob_dev_portfolio.repository.RecipeRepository
 import com.example.mob_dev_portfolio.model.RecipeViewModel
 import com.example.mob_dev_portfolio.data.RetrofitClient
+import com.example.mob_dev_portfolio.data.SavedRecipe
 import com.example.mob_dev_portfolio.model.ViewModelFactory
 
 class RecipeDetailFragment : Fragment() {
@@ -42,6 +43,7 @@ class RecipeDetailFragment : Fragment() {
         if (recipeId > 0) {
             fetchRecipeDetail(recipeId)
             setIconForFavouriteRecipes(recipeId)
+            setIconForSavedRecipes(recipeId)
 
         } else {
             Log.e("RecipeDetailFragment", "Invalid recipeId: $recipeId")
@@ -52,6 +54,10 @@ class RecipeDetailFragment : Fragment() {
             handleLikeButtonClick()
         }
 
+        view.findViewById<ImageView>(R.id.bookmarkImageView)?.setOnClickListener {
+            handleBookmarkButtonClick()
+        }
+
     }
 
     private fun handleLikeButtonClick() {
@@ -59,11 +65,11 @@ class RecipeDetailFragment : Fragment() {
             val isCurrentRecipeLiked = recipeViewModel.favouriteRecipes.value?.any { it.id == recipeId } ?: false
 
             if (isCurrentRecipeLiked) {
-                // Unlike the recipe
+
                 recipeViewModel.deleteFavouriteRecipe(FavouriteRecipe(id = recipe.id, title = recipe.title, isLiked = false))
                 view?.findViewById<ImageView>(R.id.likeImageView)?.setImageResource(R.drawable.ic_heart_empty)
             } else {
-                // Like the recipe
+
                 recipeViewModel.addFavouriteRecipe(FavouriteRecipe(id = recipe.id, title = recipe.title, isLiked = true)) { id ->
                     if (id > 0) {
                         Toast.makeText(
@@ -71,12 +77,51 @@ class RecipeDetailFragment : Fragment() {
                             "Recipe added to liked!",
                             Toast.LENGTH_SHORT
                         ).show()
-                        // Update the heart icon to full
+
                         view?.findViewById<ImageView>(R.id.likeImageView)?.setImageResource(R.drawable.ic_heart_full)
                     } else {
                         Toast.makeText(
                             requireContext(),
                             "Failed to add recipe to liked!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        }
+    }
+    private fun handleBookmarkButtonClick() {
+        recipeViewModel.recipeDetail.value?.let { recipe ->
+            val isCurrentRecipeSaved = recipeViewModel.savedRecipes.value?.any { it.id == recipeId } ?: false
+
+            if (isCurrentRecipeSaved) {
+
+                recipeViewModel.deleteSavedRecipe(SavedRecipe(
+                    id = recipe.id,
+                    title = recipe.title,
+                    isSaved = false
+                ))
+                view?.findViewById<ImageView>(R.id.bookmarkImageView)?.setImageResource(R.drawable.ic_bookmark_empty)
+            } else {
+
+                recipeViewModel.addSavedRecipe(
+                    SavedRecipe(
+                    id = recipe.id,
+                    title = recipe.title,
+                    isSaved = true
+                )
+                ) { id ->
+                    if (id > 0) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Recipe added to saved!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        view?.findViewById<ImageView>(R.id.bookmarkImageView)?.setImageResource(R.drawable.ic_bookmark_full)
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Failed to add recipe to saved!",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -96,6 +141,20 @@ class RecipeDetailFragment : Fragment() {
                 view?.findViewById<ImageView>(R.id.likeImageView)?.setImageResource(R.drawable.ic_heart_full)
             } else {
                 view?.findViewById<ImageView>(R.id.likeImageView)?.setImageResource(R.drawable.ic_heart_empty)
+            }
+        })
+    }
+    private fun setIconForSavedRecipes(recipeId: Int) {
+        recipeViewModel.savedRecipes.observe(viewLifecycleOwner, Observer { savedRecipes ->
+            val isCurrentRecipeSaved = savedRecipes.any { it.id == recipeId }
+
+
+            if (isCurrentRecipeSaved) {
+
+                view?.findViewById<ImageView>(R.id.bookmarkImageView)?.setImageResource(R.drawable.ic_bookmark_full)
+            } else {
+
+                view?.findViewById<ImageView>(R.id.bookmarkImageView)?.setImageResource(R.drawable.ic_bookmark_empty)
             }
         })
     }

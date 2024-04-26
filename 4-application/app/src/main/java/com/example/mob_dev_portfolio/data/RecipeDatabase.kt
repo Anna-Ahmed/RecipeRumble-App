@@ -10,7 +10,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.mob_dev_portfolio.dao.RecipeDao
 
 @TypeConverters(Converters::class)
-@Database(entities = [ FavouriteRecipe::class], version = 3)
+@Database(entities = [ FavouriteRecipe::class, SavedRecipe::class], version = 4)
 abstract class RecipeDatabase : RoomDatabase() {
 
     abstract fun recipeDao(): RecipeDao
@@ -55,7 +55,35 @@ abstract class RecipeDatabase : RoomDatabase() {
                 )
             }
         }
+        private val MIGRATION_3_4: Migration = object : Migration(3, 4) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                // Step 1: Create the saved_recipes_new table
+                database.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `saved_recipes_new` (" +
+                            "`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                            "`title` TEXT NOT NULL, " +
+                            "`isSaved` INTEGER NOT NULL DEFAULT 0)"
+                )
 
+
+                val savedRecipesTableExists = database.query("SELECT name FROM sqlite_master WHERE type='table' AND name='saved_recipes'")
+                if (savedRecipesTableExists.moveToFirst()) {
+
+                    database.execSQL(
+                        "INSERT INTO saved_recipes_new (id, title, isSaved) " +
+                                "SELECT id, title, isSaved FROM saved_recipes"
+                    )
+
+
+                    database.execSQL("DROP TABLE IF EXISTS saved_recipes")
+                }
+
+                savedRecipesTableExists.close()
+
+
+                database.execSQL("ALTER TABLE saved_recipes_new RENAME TO saved_recipes")
+            }
+        }
         fun getDatabase(context: Context): RecipeDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
@@ -63,7 +91,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     RecipeDatabase::class.java,
                     "recipe_database"
                 )
-                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
                     .build()
                 INSTANCE = instance
                 instance

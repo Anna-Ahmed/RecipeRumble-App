@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">mob-dev-portfolio</string>
     <string name="heart_icon_description">heartIcon\n</string>
+    <string name="delete_button_description">delete button</string>
 </resources>

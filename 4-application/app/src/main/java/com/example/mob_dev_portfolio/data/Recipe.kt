@@ -46,3 +46,9 @@ data class  FavouriteRecipe(
     val title: String,
     val isLiked: Boolean
 )
+@Entity(tableName = "saved_recipes")
+data class SavedRecipe(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val title: String,
+    val isSaved: Boolean
+)

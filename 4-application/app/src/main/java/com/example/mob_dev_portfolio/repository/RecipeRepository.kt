@@ -13,6 +13,7 @@ import com.example.mob_dev_portfolio.data.RecipeAPI
 import com.example.mob_dev_portfolio.data.RecipeDatabase
 import com.example.mob_dev_portfolio.data.RecipeInstructionResponse
 import com.example.mob_dev_portfolio.data.RecipeResponse
+import com.example.mob_dev_portfolio.data.SavedRecipe
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,6 +28,7 @@ class RecipeRepository(private val api: RecipeAPI, private val db: RecipeDatabas
     val nutrition: MutableLiveData<NutritionResponse> = MutableLiveData()
     val recipeInstructions: MutableLiveData<List<RecipeInstructionResponse>> = MutableLiveData()
     val favouriteRecipes: LiveData<List<FavouriteRecipe>> = db.recipeDao().getFavouriteRecipes()
+    val savedRecipes: LiveData<List<SavedRecipe>> = db.recipeDao().getSavedRecipes()
 
     fun fetchRecipes(number: Int, apiKey: String) {
         api.getRandomRecipes(number, apiKey).enqueue(object : Callback<RecipeResponse> {
@@ -131,6 +133,21 @@ class RecipeRepository(private val api: RecipeAPI, private val db: RecipeDatabas
     fun deleteFavouriteRecipe(favouriteRecipe: FavouriteRecipe) {
         Executors.newSingleThreadExecutor().execute {
             db.recipeDao().deleteFavouriteRecipe(favouriteRecipe)
+        }
+    }
+
+    fun addSavedRecipe(savedRecipe: SavedRecipe, callback: (Long) -> Unit) {
+        Executors.newSingleThreadExecutor().execute {
+            val id = db.recipeDao().insertSavedRecipe(savedRecipe)
+            Handler(Looper.getMainLooper()).post {
+                callback(id)
+            }
+        }
+    }
+
+    fun deleteSavedRecipe(savedRecipe: SavedRecipe) {
+        Executors.newSingleThreadExecutor().execute {
+            db.recipeDao().deleteSavedRecipe(savedRecipe)
         }
     }
     }
