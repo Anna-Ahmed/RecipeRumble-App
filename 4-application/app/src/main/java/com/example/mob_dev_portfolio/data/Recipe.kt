@@ -1,5 +1,6 @@
 package com.example.mob_dev_portfolio.data
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -51,4 +52,15 @@ data class SavedRecipe(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val title: String,
     val isSaved: Boolean
+)
+
+@Entity(tableName = "my_recipes")
+data class MyRecipe(
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    val id: Int = 0,
+    val title: String,
+    val instructions: String,
+    val ingredients: String?,
+    val calories: String?
 )

@@ -7,6 +7,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.mob_dev_portfolio.data.FavouriteRecipe
+import com.example.mob_dev_portfolio.data.MyRecipe
 import com.example.mob_dev_portfolio.data.SavedRecipe
 
 @Dao
@@ -27,4 +28,12 @@ interface RecipeDao {
 
     @Delete
     fun deleteSavedRecipe(savedRecipe: SavedRecipe)
+
+    @Query("SELECT * FROM my_recipes")
+    fun getMyRecipes(): LiveData<List<MyRecipe>>
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertMyRecipe(myRecipe: MyRecipe): Long
+    @Delete
+    fun deleteMyRecipe(myRecipe: MyRecipe)
 }

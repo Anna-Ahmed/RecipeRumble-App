@@ -4,11 +4,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recipesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/userRecipesRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="8dp">
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+
+            <ImageView
+                android:id="@+id/recipeBookImageView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/rbook"
+                android:layout_marginBottom="16dp" />
+
+
+            <Button
+                android:id="@+id/viewMyRecipesButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/recipeBookImageView"
+                android:layout_centerHorizontal="true"
+                android:text="View My Recipes"
+
+                android:layout_marginTop="5dp" />
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -17,10 +71,12 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
         app:cardCornerRadius="8dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp">
+
 
             <ImageView
                 android:id="@+id/recipeImageView"
@@ -29,7 +85,8 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:src="@drawable/restaurant"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="16dp" />
+
 
             <Button
                 android:id="@+id/getRecipesButton"
@@ -41,7 +98,6 @@
                 android:layout_marginTop="16dp" />
 
         </RelativeLayout>
-
     </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

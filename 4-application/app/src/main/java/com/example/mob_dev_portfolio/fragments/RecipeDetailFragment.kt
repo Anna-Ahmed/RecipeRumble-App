@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -56,6 +57,10 @@ class RecipeDetailFragment : Fragment() {
 
         view.findViewById<ImageView>(R.id.bookmarkImageView)?.setOnClickListener {
             handleBookmarkButtonClick()
+        }
+        // Handling backButton click
+        view.findViewById<ImageButton>(R.id.backButtonAPI).setOnClickListener {
+            activity?.onBackPressed() // Navigate back to the previous screen
         }
 
     }

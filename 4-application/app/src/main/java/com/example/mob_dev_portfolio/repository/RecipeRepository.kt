@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.mob_dev_portfolio.data.FavouriteRecipe
 import com.example.mob_dev_portfolio.data.IngredientListResponse
+import com.example.mob_dev_portfolio.data.MyRecipe
 import com.example.mob_dev_portfolio.data.NutritionResponse
 import com.example.mob_dev_portfolio.data.Recipe
 import com.example.mob_dev_portfolio.data.RecipeAPI
@@ -29,6 +30,7 @@ class RecipeRepository(private val api: RecipeAPI, private val db: RecipeDatabas
     val recipeInstructions: MutableLiveData<List<RecipeInstructionResponse>> = MutableLiveData()
     val favouriteRecipes: LiveData<List<FavouriteRecipe>> = db.recipeDao().getFavouriteRecipes()
     val savedRecipes: LiveData<List<SavedRecipe>> = db.recipeDao().getSavedRecipes()
+    val myRecipes: LiveData<List<MyRecipe>> = db.recipeDao().getMyRecipes()
 
     fun fetchRecipes(number: Int, apiKey: String) {
         api.getRandomRecipes(number, apiKey).enqueue(object : Callback<RecipeResponse> {
@@ -123,7 +125,7 @@ class RecipeRepository(private val api: RecipeAPI, private val db: RecipeDatabas
         Executors.newSingleThreadExecutor().execute {
             val id = db.recipeDao().insertFavouriteRecipe(favouriteRecipe)
 
-            // Post the result back to the main thread
+
             Handler(Looper.getMainLooper()).post {
                 callback(id)
             }
@@ -148,6 +150,20 @@ class RecipeRepository(private val api: RecipeAPI, private val db: RecipeDatabas
     fun deleteSavedRecipe(savedRecipe: SavedRecipe) {
         Executors.newSingleThreadExecutor().execute {
             db.recipeDao().deleteSavedRecipe(savedRecipe)
+        }
+    }
+
+ fun addMyRecipe(recipe: MyRecipe, callback: (Long) -> Unit) {
+        Executors.newSingleThreadExecutor().execute {
+            val id = db.recipeDao().insertMyRecipe(recipe)
+            Handler(Looper.getMainLooper()).post {
+                callback(id)
+            }
+        }
+    }
+    fun deleteMyRecipe(recipe: MyRecipe) {
+        Executors.newSingleThreadExecutor().execute {
+            db.recipeDao().deleteMyRecipe(recipe)
         }
     }
     }

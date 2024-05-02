@@ -10,7 +10,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.mob_dev_portfolio.dao.RecipeDao
 
 @TypeConverters(Converters::class)
-@Database(entities = [ FavouriteRecipe::class, SavedRecipe::class], version = 4)
+@Database(entities = [ FavouriteRecipe::class, SavedRecipe::class, MyRecipe::class], version = 5)
 abstract class RecipeDatabase : RoomDatabase() {
 
     abstract fun recipeDao(): RecipeDao
@@ -84,6 +84,40 @@ abstract class RecipeDatabase : RoomDatabase() {
                 database.execSQL("ALTER TABLE saved_recipes_new RENAME TO saved_recipes")
             }
         }
+        private val MIGRATION_4_5: Migration = object : Migration(4, 5) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+
+                database.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `my_recipes_new` (" +
+                            "`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                            "`title` TEXT NOT NULL, " +
+                            "`instructions` TEXT NOT NULL, " +
+                            "`ingredients` TEXT, " +
+                            "`calories` TEXT)"
+                )
+
+
+                val cursor = database.query("SELECT name FROM sqlite_master WHERE type='table' AND name='my_recipes'")
+                val tableExists = cursor.moveToFirst()
+                cursor.close()
+
+                if (tableExists) {
+
+                    database.execSQL(
+                        "INSERT INTO my_recipes_new (id, title, instructions, ingredients, calories) " +
+                                "SELECT id, title, instructions, ingredients, calories FROM my_recipes"
+                    )
+
+
+                    database.execSQL("DROP TABLE IF EXISTS my_recipes")
+                }
+
+
+                database.execSQL("ALTER TABLE my_recipes_new RENAME TO my_recipes")
+            }
+        }
+
+
         fun getDatabase(context: Context): RecipeDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
@@ -91,7 +125,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     RecipeDatabase::class.java,
                     "recipe_database"
                 )
-                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
+                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
                     .build()
                 INSTANCE = instance
                 instance

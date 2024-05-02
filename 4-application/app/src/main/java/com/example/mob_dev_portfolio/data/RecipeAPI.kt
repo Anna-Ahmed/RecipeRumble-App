@@ -36,6 +36,14 @@ interface RecipeAPI {
         @Path("id") recipeId: Int,
         @Query("apiKey") apiKey: String
     ): Call<List<RecipeInstructionResponse>>
+    @GET("mealplanner/generate")
+    fun generateMealPlan(
+        @Query("timeFrame") timeFrame: String,
+        @Query("targetCalories") targetCalories: Int,
+        @Query("diet") diet: String?,
+        @Query("exclude") exclude: String?,
+        @Query("apiKey") apiKey: String
+    ): Call<MealPlanResponse>
 }
 
 
@@ -49,4 +57,25 @@ data class IngredientListResponse(
 
 data class RecipeInstructionResponse(
     val steps: List<Step>
+)
+
+data class MealPlanResponse(
+    val meals: List<Meal>,
+    val nutrients: Nutrients
+)
+
+data class Meal(
+    val id: Int,
+    val title: String,
+    val imageType: String,
+    val readyInMinutes: Int,
+    val servings: Int,
+    val sourceUrl: String
+)
+
+data class Nutrients(
+    val calories: Double,
+    val carbohydrates: Double,
+    val fat: Double,
+    val protein: Double
 )

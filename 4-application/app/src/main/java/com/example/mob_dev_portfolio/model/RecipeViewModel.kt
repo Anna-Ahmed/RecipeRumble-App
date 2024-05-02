@@ -3,6 +3,7 @@ package com.example.mob_dev_portfolio.model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.mob_dev_portfolio.data.FavouriteRecipe
+import com.example.mob_dev_portfolio.data.MyRecipe
 import com.example.mob_dev_portfolio.data.NutritionResponse
 import com.example.mob_dev_portfolio.data.Recipe
 import com.example.mob_dev_portfolio.data.RecipeInstructionResponse
@@ -17,6 +18,7 @@ class RecipeViewModel(private val repository: RecipeRepository) : ViewModel() {
     val recipeInstructions: LiveData<List<RecipeInstructionResponse>> = repository.recipeInstructions
     val favouriteRecipes: LiveData<List<FavouriteRecipe>> = repository.favouriteRecipes
     val savedRecipes: LiveData<List<SavedRecipe>> = repository.savedRecipes
+    val myRecipes: LiveData<List<MyRecipe>> = repository.myRecipes
     fun fetchRecipes(number: Int, apiKey: String) {
         repository.fetchRecipes(number, apiKey)
     }
@@ -45,6 +47,13 @@ class RecipeViewModel(private val repository: RecipeRepository) : ViewModel() {
 
     fun deleteSavedRecipe(savedRecipe: SavedRecipe) {
         repository.deleteSavedRecipe(savedRecipe)
+    }
+
+    fun addMyRecipe(recipe: MyRecipe, callback: (Long) -> Unit) {
+        repository.addMyRecipe(recipe, callback)
+    }
+    fun deleteMyRecipe(recipe: MyRecipe) {
+        repository.deleteMyRecipe(recipe)
     }
 
 

@@ -1,4 +1,3 @@
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -10,21 +9,13 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+
         <ImageButton
-            android:id="@+id/backButtonAPI"
+            android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_back_arrow"
             android:layout_margin="8dp"/>
-
-        <ImageView
-            android:id="@+id/recipeImageView"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:layout_marginBottom="16dp"/>
-
 
 
         <androidx.cardview.widget.CardView
@@ -43,23 +34,8 @@
                 android:padding="16dp">
 
 
-                <ImageView
-                    android:id="@+id/likeImageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_heart_empty"
-                    android:layout_gravity="right"
-                    android:layout_marginBottom="20dp"/>
-                <ImageView
-                    android:id="@+id/bookmarkImageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:src="@drawable/ic_bookmark_empty"
-                    android:layout_marginBottom="16dp"/>
-
                 <TextView
-                    android:id="@+id/titleTextView"
+                    android:id="@+id/mytitleTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
@@ -67,7 +43,7 @@
                     android:layout_marginBottom="8dp"/>
 
                 <TextView
-                    android:id="@+id/caloriesContent"
+                    android:id="@+id/mycaloriesContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
@@ -78,7 +54,7 @@
 
 
         <TextView
-            android:id="@+id/ingredientsLabel"
+            android:id="@+id/myingredientsLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
@@ -89,7 +65,7 @@
             android:layout_marginBottom="8dp"/>
 
         <TextView
-            android:id="@+id/ingredientsContent"
+            android:id="@+id/myingredientsContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
@@ -98,7 +74,7 @@
             android:layout_marginBottom="16dp"/>
 
         <TextView
-            android:id="@+id/instructionsLabel"
+            android:id="@+id/myinstructionsLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
@@ -109,7 +85,7 @@
             android:layout_marginBottom="8dp"/>
 
         <TextView
-            android:id="@+id/instructionsContent"
+            android:id="@+id/myinstructionsContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
@@ -119,3 +95,4 @@
 
     </LinearLayout>
 </ScrollView>
+

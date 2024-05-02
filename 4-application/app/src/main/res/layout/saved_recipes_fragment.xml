@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:padding="16dp">
 
- <!-- RecyclerView to display saved recipes -->
+
  <androidx.recyclerview.widget.RecyclerView
      android:id="@+id/savedRecipesRecyclerView"
      android:layout_width="match_parent"
