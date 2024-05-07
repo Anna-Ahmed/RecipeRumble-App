@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">mob-dev-portfolio</string>
+    <string name="app_name">Recipe Rumble</string>
     <string name="heart_icon_description">heartIcon\n</string>
     <string name="delete_button_description">delete button</string>
     <string name="time_frame_desciption">Time Frame: Enter day for day meal plan)</string>
     <string name="calorie_desc">Target Calories: What is the caloric target for one day?. eg(2000, 1500)</string>
     <string name="diet_desc">Diet: Enter a diet that the meal plan has to adhere to: Gluten Free, Vegetarian, Ketogenic, Vegan, Lacto-Vegetarian, Ovo-Vegetarian, Pescetarian, Paleo, Primal, Whole30</string>
     <string name="excluded_desc">Excluded: A comma-separated list of allergens or ingredients that must be excluded, eg(oil,fish,meat,butter.</string>
+    <string name="recipe_image_description">recipe image loading</string>
 </resources>

@@ -1,15 +1,22 @@
 package com.example.mob_dev_portfolio.fragments
 
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.mob_dev_portfolio.R
 import com.example.mob_dev_portfolio.data.MealPlanResponse
@@ -38,7 +45,7 @@ class MealPlannerFragment: Fragment() {
 
 
         generateButton.setOnClickListener {
-            generateMealPlan()
+            showMealPlanPopup()
         }
 
 
@@ -46,18 +53,57 @@ class MealPlannerFragment: Fragment() {
 
         return view
     }
+
+    private fun showMealPlanPopup() {
+
+        val popupView = LayoutInflater.from(requireContext()).inflate(R.layout.popup_meal_plan_generate, null)
+        val popupWindow = PopupWindow(
+            popupView,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            true
+        )
+
+
+        val iconImageView = popupView.findViewById<ImageView>(R.id.iconImageView)
+
+
+        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0)
+
+
+        val anim = ObjectAnimator.ofFloat(iconImageView, "translationX", 0f, 100f)
+        anim.duration = 1000
+        anim.repeatCount = ValueAnimator.INFINITE
+        anim.repeatMode = ValueAnimator.REVERSE
+        anim.start()
+
+        // Dismiss the popup after a delay (for demonstration purposes)
+        Handler(Looper.getMainLooper()).postDelayed({
+            popupWindow.dismiss()
+            generateMealPlan()
+        }, 3000)
+    }
+
+
+
     private fun generateMealPlan() {
+
         val timeFrameEditText = view?.findViewById<EditText>(R.id.timeFrameEditText)
         val targetCaloriesEditText = view?.findViewById<EditText>(R.id.targetCaloriesEditText)
         val dietEditText = view?.findViewById<EditText>(R.id.dietEditText)
         val excludeEditText = view?.findViewById<EditText>(R.id.excludeEditText)
-
 
         val timeFrame = timeFrameEditText?.text.toString()
         val targetCalories = targetCaloriesEditText?.text.toString().toIntOrNull() ?: 0
         val diet = dietEditText?.text.toString()
         val exclude = excludeEditText?.text.toString()
 
+
+        if (timeFrame.isEmpty() || diet.isEmpty() || exclude.isEmpty()) {
+
+            Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         val call = recipeApi.generateMealPlan(timeFrame, targetCalories, diet, exclude, "b94a351e14e94600bc8f1a9cae0008eb")
 

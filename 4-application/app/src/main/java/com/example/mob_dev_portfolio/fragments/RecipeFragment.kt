@@ -64,7 +64,7 @@ class RecipeFragment : Fragment(), OnItemClickListener {
 
         getRecipesButton.setOnClickListener {
 
-            recipeViewModel.fetchRecipes(10, "b94a351e14e94600bc8f1a9cae0008eb")
+            recipeViewModel.fetchRecipes(25, "b94a351e14e94600bc8f1a9cae0008eb")
         }
 
         viewMyRecipesButton.setOnClickListener {

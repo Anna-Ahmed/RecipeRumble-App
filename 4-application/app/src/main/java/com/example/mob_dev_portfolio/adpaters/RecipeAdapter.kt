@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.mob_dev_portfolio.main.MainActivity
 import com.example.mob_dev_portfolio.R
 import com.example.mob_dev_portfolio.data.Recipe
@@ -32,10 +34,18 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
         notifyDataSetChanged()
     }
     inner class RecipeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val titleTextView: TextView = itemView.findViewById(R.id.recipeTitle)
+        private val titleTextView: TextView = itemView.findViewById(R.id.recipeAPITitle)
+        private val recipeImageView: ImageView = itemView.findViewById(R.id.recipeImageView)
 
         fun bind(recipe: Recipe) {
             titleTextView.text = recipe.title
+            Glide.with(itemView)
+                .load(recipe.image)
+                .placeholder(R.drawable.ic_load)
+                .error(R.drawable.ic_recipe_image_placeholder)
+                .centerCrop()
+                .into(recipeImageView)
+
             itemView.setOnClickListener {
                 val fragment = RecipeDetailFragment()
                 val bundle = Bundle().apply {
@@ -49,8 +59,6 @@ class RecipeAdapter : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
                     .commit()
             }
         }
-    }
+    }}
 
 
-
-}

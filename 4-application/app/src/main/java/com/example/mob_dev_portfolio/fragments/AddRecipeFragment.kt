@@ -42,6 +42,13 @@ class AddRecipeFragment: Fragment() {
         val calories = caloriesEditText?.text.toString()
 
 
+        if (recipeName.isEmpty() || ingredients.isEmpty() || instructions.isEmpty() || calories.isEmpty()) {
+
+            Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+
         val myRecipe = MyRecipe(
             id = 0,
             title = recipeName,
@@ -53,7 +60,6 @@ class AddRecipeFragment: Fragment() {
 
         recipeViewModel.addMyRecipe(myRecipe) { id ->
             if (id != -1L) {
-
                 Toast.makeText(requireContext(), "Recipe added successfully", Toast.LENGTH_SHORT).show()
             } else {
 
