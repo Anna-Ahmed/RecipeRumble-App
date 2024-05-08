@@ -11,11 +11,9 @@ The application must allow users to navigate between different pages by using a 
 
 The application must contain a list of different recipes 
 
-The application must containt the ingredients , instructions and nutrition information for each recipe
+The application must allow users to view a list of different recipes 
 
-The application must contain a calender
-
-The application must allow users to use a calender to meal plan their meals
+The application must containt the ingredients ,instructions and calories for each recipe
 
 The application must allow users to click the favourite button on a recipe so that uses can see their favoruite recipes 
 
@@ -27,10 +25,9 @@ The application must allow users to view their list of saved recipes so they can
 
 The application must allow users to add their own recipes
 
-The application must allow users to add meals to the calender
+The application must allow users to generate a meal plan based on their prefences.
 
-The application must notify the user to remind them to plan a meal if they haven't already
-
+The application must notify the user to remind them about the app
 
 Non Functional Requirements:
 
