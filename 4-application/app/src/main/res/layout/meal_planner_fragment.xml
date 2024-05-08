@@ -1,14 +1,95 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Plan A Meal Page"
-        android:layout_centerInParent="true"
-        android:textColor="#000000"
-        android:textSize="30dp"/>
-</RelativeLayout>
+        android:padding="24dp">
+
+
+
+        <EditText
+            android:id="@+id/timeFrameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Time Frame"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:background="@drawable/edittext_bg"
+            android:padding="12dp"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/targetCaloriesEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Target Calories"
+            android:inputType="number"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:background="@drawable/edittext_bg"
+            android:padding="12dp"
+            android:layout_below="@id/timeFrameEditText"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/dietEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Diet"
+            android:textSize="16sp"
+            android:background="@drawable/edittext_bg"
+            android:padding="12dp"
+            android:textColor="#000000"
+            android:layout_below="@id/targetCaloriesEditText"
+            android:layout_marginTop="16dp"/>
+
+
+        <EditText
+            android:id="@+id/excludeEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Excluded Ingredients"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:background="@drawable/edittext_bg"
+            android:padding="12dp"
+            android:layout_below="@id/dietEditText"
+            android:layout_marginTop="16dp"/>
+
+
+        <Button
+            android:id="@+id/generateButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Generate Meal Plan"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_bg"
+            android:layout_below="@id/excludeEditText"
+            android:layout_marginTop="24dp"/>
+
+        <ImageButton
+            android:id="@+id/questionMarkButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@id/targetCaloriesEditText"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="13dp"
+            android:background="@null"
+            android:src="@drawable/ic_question_mark" />
+
+        <TextView
+            android:id="@+id/mealPlanTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/generateButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            android:textSize="18sp"
+            android:textColor="#000000"/>
+
+    </RelativeLayout>
+
+</ScrollView>

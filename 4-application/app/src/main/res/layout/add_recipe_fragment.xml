@@ -1,14 +1,89 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Title -->
     <TextView
+        android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add a Recipe"
-        android:layout_centerInParent="true"
+        android:text="Add Your Own Recipe"
+        android:textSize="24sp"
         android:textColor="#000000"
-        android:textSize="30dp"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"/>
+
+    <!-- Form -->
+    <LinearLayout
+        android:id="@+id/formLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/titleTextView"
+        android:layout_centerVertical="true">
+
+        <EditText
+            android:id="@+id/recipeNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Recipe Name"
+            android:padding="12dp"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:background="@drawable/edittext_bg"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
+        <EditText
+            android:id="@+id/ingredientsEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ingredients"
+            android:padding="12dp"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:background="@drawable/edittext_bg"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/instructionsEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Instructions"
+            android:padding="12dp"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:background="@drawable/edittext_bg"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/caloriesEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Calories"
+            android:padding="12dp"
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:background="@drawable/edittext_bg"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"/>
+
+        <Button
+            android:id="@+id/addRecipeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Recipe"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_bg"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"/>
+
+    </LinearLayout>
+
 </RelativeLayout>
